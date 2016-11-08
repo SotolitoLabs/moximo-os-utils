@@ -27,7 +27,7 @@ fi
 
 
 echo "Writing image to SD: ${SD}"
-#fedora-arm-image-installer -y --image=${IMAGE} --target=Cubietruck --media=${SD}
+fedora-arm-image-installer -y --image=${IMAGE} --target=Cubietruck --media=${SD}
 
 echo "Creating HD partitions"
 sfdisk $HD < $HD_GEOMETRY
