@@ -29,8 +29,8 @@ sfdisk ${HD} < ${HD_GEOMETRY}
 
 echo "Format HD partitions"
 mkswap ${HD}1
-mkfx.xfs ${HD}2
-mkfx.xfs ${HD}3
+mkfs.xfs ${HD}2
+mkfs.xfs ${HD}3
 
 
 mount ${HD}3 ${ROOTFS}
@@ -74,4 +74,7 @@ label SotolitoOS-${RELEASE} (${KERNEL_VERSION})
 
 EOM
 
+echo "Unmounting partitions"
+umount /mnt/var
+umount /mnt
 echo "Done, restart your device and enjoy life"
