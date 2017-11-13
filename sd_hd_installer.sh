@@ -16,9 +16,9 @@ RELEASE="f26"
 DIST="sotolito-moximo-remix-$RELEASE-ct.tar"
 ROOTFS="/mnt"
 KERNEL_VERSION="4.11.8-300.fc26.armv7hl"
-
 HD_GEOMETRY="moximo_partitions.sfdisk"
 HD="/dev/sda"
+HOSTNAME="moximo"
 
 echo "Preparing SotolitoLabs HD distribution"
 
@@ -75,6 +75,10 @@ label SotolitoOS-${RELEASE} (${KERNEL_VERSION})
 EOM
 
 echo "Unmounting partitions"
+
+echo "Setting up hostname"
+echo $HOSTNAME > /mnt/etc/hostname
+
 umount /mnt/var
 umount /mnt
 echo "Done, restart your device and enjoy life"
