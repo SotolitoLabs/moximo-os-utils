@@ -29,12 +29,12 @@ sfdisk ${HD} < ${HD_GEOMETRY}
 
 echo "Format HD partitions"
 mkswap ${HD}1
-mkfs.xfs ${HD}2
-mkfs.xfs ${HD}3
+mkfs.xfs -f ${HD}2
+mkfs.xfs -f ${HD}3
 
 
 mount ${HD}3 ${ROOTFS}
-tar -c / --exclude=${ROOTFS} > ${ROOTFS}/${DIST}
+tar --exclude=${ROOTFS} -c / > ${ROOTFS}/${DIST}
 umount ${ROOTFS}
 mount ${HD}2 ${ROOTFS}
 mkdir ${ROOTFS}/var
