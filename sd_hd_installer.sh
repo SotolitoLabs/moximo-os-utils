@@ -47,9 +47,9 @@ mv $ROOTFS/etc/fstab $ROOTFS/etc/fstab.sdcard
 cat > ${ROOTFS}/etc/fstab <<- EOM
 
 ${HD}2       /     xfs    defaults,noatime                0 0
-${HD}3       /var  xfs    noatime,attrs,usrquota,grpquota 0 2
-/dev/mmcblk0p2  /boot ext4   defaults,noatime                0 0
-${HD}1       swap  swap   defaults,noatime                0 0
+${HD}3       /var  xfs    defaults                        0 2
+/dev/mmcblk0p2  /boot ext4   defaults,noatime             0 0
+${HD}1       swap  swap   defaults                        0 0
 
 EOM
 
