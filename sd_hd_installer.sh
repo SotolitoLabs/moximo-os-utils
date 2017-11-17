@@ -79,6 +79,9 @@ echo "Unmounting partitions"
 echo "Setting up hostname"
 echo $HOSTNAME > /mnt/etc/hostname
 
+echo "Configure SELinux"
+touch /mnt/.autorelabel
+
 umount /mnt/var
 umount /mnt
 echo "Done, restart your device and enjoy life"
