@@ -22,7 +22,7 @@ HD="/dev/sda"
 
 echo "Preparing SotolitoLabs HD distribution"
 
-dnf install -y xfsprogs
+dnf install -y xfsprogs tar
 
 echo "Creating HD partitions"
 sfdisk ${HD} < ${HD_GEOMETRY}
