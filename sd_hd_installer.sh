@@ -16,9 +16,9 @@ RELEASE="f26"
 DIST="sotolito-moximo-remix-$RELEASE-ct.tar"
 ROOTFS="/mnt"
 KERNEL_VERSION="4.11.8-300.fc26.armv7hl"
-
 HD_GEOMETRY="moximo_partitions.sfdisk"
 HD="/dev/sda"
+HOSTNAME="moximo"
 
 echo "Preparing SotolitoLabs HD distribution"
 
@@ -29,12 +29,12 @@ sfdisk ${HD} < ${HD_GEOMETRY}
 
 echo "Format HD partitions"
 mkswap ${HD}1
-mkfs.xfs ${HD}2
-mkfs.xfs ${HD}3
+mkfs.xfs -f ${HD}2
+mkfs.xfs -f ${HD}3
 
 
 mount ${HD}3 ${ROOTFS}
-tar -c / --exclude=${ROOTFS} > ${ROOTFS}/${DIST}
+tar --exclude=${ROOTFS} -c / > ${ROOTFS}/${DIST}
 umount ${ROOTFS}
 mount ${HD}2 ${ROOTFS}
 mkdir ${ROOTFS}/var
@@ -47,9 +47,9 @@ mv $ROOTFS/etc/fstab $ROOTFS/etc/fstab.sdcard
 cat > ${ROOTFS}/etc/fstab <<- EOM
 
 ${HD}2       /     xfs    defaults,noatime                0 0
-${HD}3       /var  xfs    noatime,attrs,usrquota,grpquota 0 2
-/dev/mmcblk0p2  /boot ext4   defaults,noatime                0 0
-${HD}1       swap  swap   defaults,noatime                0 0
+${HD}3       /var  xfs    defaults                        0 2
+/dev/mmcblk0p2  /boot ext4   defaults,noatime             0 0
+${HD}1       swap  swap   defaults                        0 0
 
 EOM
 
@@ -75,6 +75,13 @@ label SotolitoOS-${RELEASE} (${KERNEL_VERSION})
 EOM
 
 echo "Unmounting partitions"
+
+echo "Setting up hostname"
+echo $HOSTNAME > /mnt/etc/hostname
+
+echo "Configure SELinux"
+touch /mnt/.autorelabel
+
 umount /mnt/var
 umount /mnt
 echo "Done, restart your device and enjoy life"
