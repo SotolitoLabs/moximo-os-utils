@@ -13,7 +13,7 @@ HD_GEOMETRY="moximo_partitions.sfdisk"
 BOOTFS="/home/ichavero/sotolitoLabs/moximo-images/fs/moximo-bootfs.tar.gz"
 ROOTFS="/home/ichavero/sotolitoLabs/moximo-images/fs/moximo-rootfs.tar.gz"
 VARFS="/home/ichavero/sotolitoLabs/moximo-images/fs/moximo-varfs.tar.gz"
-IMAGE="../fedora-images/Fedora-Server-armhfp-24-1.2-sda.raw.xz"
+IMAGE="../fedora-images/Fedora-Server-armhfp-27-1.6-sda.raw.xz"
 
 if [ "${SD}" == "" ]; then
     echo "Missing SD parameter"
@@ -25,6 +25,9 @@ if [ "${HD}" == "" ]; then
     exit 0;
 fi
 
+if ["${3}" != ""]; then
+   IMAGE=$3
+fi
 
 echo "Writing image to SD: ${SD}"
 fedora-arm-image-installer -y --image=${IMAGE} --target=Cubietruck --media=${SD}
